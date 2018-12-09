@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "892313738993",
+    "firebase_url": "https://movingsafety-a96c1.firebaseio.com",
+    "project_id": "movingsafety-a96c1",
+    "storage_bucket": "movingsafety-a96c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892313738993:android:e5bb873b8e5e97d8",
+        "android_client_info": {
+          "package_name": "com.example.hxtruong.movingsafety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892313738993-70p46gfnd6dd3nuql0fet8si4flab9os.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hxtruong.movingsafety",
+            "certificate_hash": "bfbf1ff2ecd2d138ff14e5cb669733bbab8ffc5c"
+          }
+        },
+        {
+          "client_id": "892313738993-8d0pj6f55h2ljb14mnc9tm2k6hetabo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA58hrBfTRRieaezpnZyy1QPWUkIr2kvF0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892313738993-8d0pj6f55h2ljb14mnc9tm2k6hetabo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
