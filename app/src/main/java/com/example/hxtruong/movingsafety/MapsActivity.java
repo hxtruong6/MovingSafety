@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -40,6 +39,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Iterator;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -65,6 +66,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng[] mLikelyPlaceLatLngs;
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+
+    // List of helpers
+    private HelperList helperList;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -331,6 +335,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void CallHelper(View view) {
-        Log.i("CALLED", "helper btn");
+        Log.i("CALLED", "helper btn.");
+        Log.i("CURR LOCATION", mLastKnownLocation.toString());
+        // Show all of helper people
+        if (mMap!= null){
+            helperList = new HelperList(mMap);
+            helperList.displayAllHelperMarker();
+        }
+        else {
+            Log.d("GG MAP", "Map is undefined");
+        }
     }
+
 }
