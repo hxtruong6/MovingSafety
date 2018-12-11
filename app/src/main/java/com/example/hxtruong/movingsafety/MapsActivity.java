@@ -39,8 +39,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Iterator;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -340,6 +338,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Show all of helper people
         if (mMap!= null){
             helperList = new HelperList(mMap);
+            // set custom info profile when user click on marker
+            mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
             helperList.displayAllHelperMarker();
         }
         else {

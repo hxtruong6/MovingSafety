@@ -19,12 +19,11 @@ public class HelperList {
         this.helperArrayList = new ArrayList<Helper>();
         for (int i = 0; i < 5; i++) {
             Location location = new Location("Person_" + Integer.toString(i));
-            location.setLatitude(10.7 + i * 0.5);
-            location.setLongitude(106.6 + i * 0.5);
+            location.setLatitude(10.7 + i * 0.1);
+            location.setLongitude(106.6);
             Helper temp = new Helper("Person_" + Integer.toString(i), location);
             this.helperArrayList.add(temp);
         }
-
     }
 
     public void displayAllHelperMarker() {
