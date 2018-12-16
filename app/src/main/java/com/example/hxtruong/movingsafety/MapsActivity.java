@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -328,10 +330,21 @@ public class MapsActivity extends FragmentActivity implements
             mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
             helperList.displayAllHelperMarker();
             isShowingInfoWindow = true;
+
+            // Change to show detail
+            Button helperBtn = ((Button) findViewById(R.id.callHelperBtn));
+            helperBtn.setText("List helpers");
+            helperBtn.setBackgroundColor(Color.parseColor("#07C4F7"));
+        }
+        else if (mMap!=null && isShowingInfoWindow) {
+            Intent intent = new Intent(this, ListHelperPopup.class);
+            startActivity(intent);
         }
         else {
             Log.d("GG MAP", "Map is undefined");
+            Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();
         }
+
     }
 
 }

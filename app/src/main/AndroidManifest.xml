@@ -42,7 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailInfo"></activity>
+        <activity android:name=".DetailInfo" />
+        <activity android:name=".ListHelperPopup"
+            android:theme="@style/AppTheme.PopMe"
+            ></activity>
     </application>
 
 </manifest>
