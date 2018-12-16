@@ -350,12 +350,10 @@ public class MapsActivity extends FragmentActivity implements
                 listTemp.add(helperList.getHelper(i));
             }
             String listSerializedToJson = new Gson().toJson(listTemp);
-            Log.d("xxx00 ", listSerializedToJson);
             intent.putExtra(EXTRA_POPUP_MESSAGE, listSerializedToJson);
             startActivity(intent);
         }
         else {
-            Log.d("GG MAP", "Map is undefined");
             Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();
         }
 
