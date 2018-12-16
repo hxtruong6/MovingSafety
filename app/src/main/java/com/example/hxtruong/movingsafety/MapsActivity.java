@@ -43,10 +43,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback
 {
+    public static final String EXTRA_POPUP_MESSAGE = "com.example.hxtruong.ListHelperPopup";
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -338,6 +345,13 @@ public class MapsActivity extends FragmentActivity implements
         }
         else if (mMap!=null && isShowingInfoWindow) {
             Intent intent = new Intent(this, ListHelperPopup.class);
+            ArrayList<Helper> listTemp = new ArrayList<>();
+            for (int i = 0 ; i< helperList.getSizeList(); i++) {
+                listTemp.add(helperList.getHelper(i));
+            }
+            String listSerializedToJson = new Gson().toJson(listTemp);
+            Log.d("xxx00 ", listSerializedToJson);
+            intent.putExtra(EXTRA_POPUP_MESSAGE, listSerializedToJson);
             startActivity(intent);
         }
         else {

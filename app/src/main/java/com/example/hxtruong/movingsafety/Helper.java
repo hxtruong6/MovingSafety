@@ -31,4 +31,8 @@ public class Helper implements Serializable {
                 .position(new LatLng(this.location.getLatitude(),this.location.getLongitude()))
                 .title(this.name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
     }
+
+    public String getName(){
+        return name;
+    }
 }

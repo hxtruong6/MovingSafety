@@ -31,5 +31,12 @@ public class HelperList {
             e.addMarker(mMap);
         }
     }
+    public int getSizeList(){
+        return helperArrayList.size();
+    }
+
+    public Helper getHelper(int i){
+        return helperArrayList.get(i);
+    }
 
 }
