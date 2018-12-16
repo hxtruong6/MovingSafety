@@ -14,5 +14,7 @@
         android:layout_marginTop="56dp"
         android:text="This should be show a name of helper"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="showDetailInfo"/>
 </android.support.constraint.ConstraintLayout>

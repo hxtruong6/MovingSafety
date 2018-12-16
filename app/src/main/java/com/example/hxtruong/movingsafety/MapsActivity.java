@@ -2,6 +2,7 @@ package com.example.hxtruong.movingsafety;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,7 +18,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -39,8 +42,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class MapsActivity extends FragmentActivity implements
+        OnMapReadyCallback
+{
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -67,6 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // List of helpers
     private HelperList helperList;
+    private boolean isShowingInfoWindow = false;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -129,33 +134,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+        if (mMap != null) {
+            //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
+        }
+        else {
+            Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();
 
-        // Do other setup activities here too, as described elsewhere in this tutorial.
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-
-                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-                title.setText(marker.getTitle());
-
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });
-        // Turn on the My Location layer and the related control on the map.
+        }
         updateLocationUI();
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
     }
@@ -336,11 +322,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i("CALLED", "helper btn.");
         Log.i("CURR LOCATION", mLastKnownLocation.toString());
         // Show all of helper people
-        if (mMap!= null){
+        if (mMap!= null && !isShowingInfoWindow ){
             helperList = new HelperList(mMap);
             // set custom info profile when user click on marker
             mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
             helperList.displayAllHelperMarker();
+            isShowingInfoWindow = true;
         }
         else {
             Log.d("GG MAP", "Map is undefined");

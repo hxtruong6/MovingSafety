@@ -1,20 +1,31 @@
 package com.example.hxtruong.movingsafety;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    public static final String EXTRA_MESSAGE = "com.example.hxtruong.DETAIL_INFO";
     private final View mWindow;
-    private Context mContext;
+    private final Context mContext;
 
     public CustomInfoWindowAdapter(Context context) {
         this.mContext = context;
         this.mWindow = LayoutInflater.from(context).inflate(R.layout.custom_info_window, null);
+    }
+
+    public void showDetailInfo(View view){
+        // Go to the other activity to show information of helper
+        Intent intent = new Intent(this.mContext, DetailInfo.class);
+        String message = "Hi fuck you =))";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        mContext.startActivity(intent);
     }
 
     private void renderWindowText(Marker marker, View view)
