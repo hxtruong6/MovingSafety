@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -55,6 +57,12 @@ public class ListHelperPopup extends Activity {
         listView = (ListView) findViewById(R.id.listView);
         ListHelperAdapter listHelperAdapter = new ListHelperAdapter();
         listView.setAdapter(listHelperAdapter);
+    }
+
+    public void clickCallHelper(View view) {
+        Toast.makeText(this, "Call", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "0976554304"));
+        startActivity(intent);
     }
 
     class ListHelperAdapter extends BaseAdapter {

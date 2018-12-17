@@ -188,7 +188,10 @@ public class MapsActivity extends FragmentActivity implements
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = (Location) task.getResult();
-                            assert mLastKnownLocation != null;
+                            if (mLastKnownLocation == null) {
+                                Toast.makeText(getApplicationContext(), "No last location", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
