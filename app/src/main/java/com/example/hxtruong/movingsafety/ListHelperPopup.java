@@ -25,7 +25,6 @@ import java.util.List;
 
 public class ListHelperPopup extends Activity {
     public static final String EXTRA_POPUP_MESSAGE = "com.example.hxtruong.ListHelperPopup";
-    public static final String EXTRA_DETAIL_MESSAGE = "com.example.hxtruong.DETAIL_INFO";
     private ListView listView;
     protected View view;
     private Helper[] helperArray;
@@ -48,8 +47,10 @@ public class ListHelperPopup extends Activity {
         params.x = 0;
         params.y = -20;
         getWindow().setAttributes(params);
-        String listSerializedToJson = getIntent().getExtras().getString(EXTRA_POPUP_MESSAGE);
-        helperArray = new Gson().fromJson(listSerializedToJson, Helper[].class); // in this
+
+        ArrayList<Helper> objs = getIntent().getParcelableArrayListExtra(EXTRA_POPUP_MESSAGE);
+        helperArray = objs.toArray(new Helper[objs.size()]);
+        Log.d("xxx", helperArray.toString());
         displayListHelpers();
     }
 
@@ -95,7 +96,7 @@ public class ListHelperPopup extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
-                    intent.putExtra(EXTRA_DETAIL_MESSAGE, helperArray[position].getName());
+                    intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, helperArray[position].getName());
                     startActivity(intent);
                 }
             });

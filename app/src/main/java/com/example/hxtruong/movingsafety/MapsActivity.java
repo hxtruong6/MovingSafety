@@ -148,11 +148,20 @@ public class MapsActivity extends FragmentActivity implements
                 public void onInfoWindowClick(Marker marker) {
                     // call an activity(xml file)
                     Toast.makeText(getApplicationContext(), "On Click marker", Toast.LENGTH_LONG).show();
-                    DirectionFinder finder = new DirectionFinder();
-                    Location loc = new Location("");
-                    loc.setLatitude(marker.getPosition().latitude);
-                    loc.setLongitude(marker.getPosition().longitude);
+                    for (int i = 0; i < helperList.getSizeList(); i++) {
+                        if (helperList.getHelper(i).getMarker().equals(marker)) {
+                            Log.d("xxx ", helperList.getHelper(i).getMarker().toString() + marker.toString());
+                            Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
+                            String message = "Hi fuck you =))";
+                            intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, message);
+                            getApplicationContext().startActivity(intent);
+                        }
+                    }
                     // TODO: show path
+//                    DirectionFinder finder = new DirectionFinder();
+//                    Location loc = new Location("");
+//                    loc.setLatitude(marker.getPosition().latitude);
+//                    loc.setLongitude(marker.getPosition().longitude);
                     //finder.displayRoute(getApplicationContext(), mMap, mMap.getMyLocation(), loc);
                 }
             });
@@ -361,8 +370,10 @@ public class MapsActivity extends FragmentActivity implements
             for (int i = 0; i < helperList.getSizeList(); i++) {
                 listTemp.add(helperList.getHelper(i));
             }
-            String listSerializedToJson = new Gson().toJson(listTemp);
-            intent.putExtra(EXTRA_POPUP_MESSAGE, listSerializedToJson);
+            Log.d("abc", "CallHelper: " + listTemp);
+//            String listSerializedToJson = new Gson().toJson(listTemp);
+//            intent.putExtra(ListHelperPopup.EXTRA_POPUP_MESSAGE, listTemp);
+            intent.putParcelableArrayListExtra(ListHelperPopup.EXTRA_POPUP_MESSAGE, listTemp);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();

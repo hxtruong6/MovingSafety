@@ -20,14 +20,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         this.mWindow = LayoutInflater.from(context).inflate(R.layout.custom_info_window, null);
     }
 
-    public void showDetailInfo(View view){
-        // Go to the other activity to show information of helper
-        Intent intent = new Intent(this.mContext, DetailInfo.class);
-        String message = "Hi fuck you =))";
-        intent.putExtra(EXTRA_MESSAGE, message);
-        mContext.startActivity(intent);
-    }
-
     private void renderWindowText(Marker marker, View view)
     {
         String title = marker.getTitle();
