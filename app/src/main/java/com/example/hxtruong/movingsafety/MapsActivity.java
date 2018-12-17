@@ -51,8 +51,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements
-        OnMapReadyCallback
-{
+        OnMapReadyCallback {
     public static final String EXTRA_POPUP_MESSAGE = "com.example.hxtruong.ListHelperPopup";
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
@@ -144,11 +143,22 @@ public class MapsActivity extends FragmentActivity implements
     public void onMapReady(GoogleMap map) {
         mMap = map;
         if (mMap != null) {
-            //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
-        }
-        else {
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    // call an activity(xml file)
+                    Toast.makeText(getApplicationContext(), "On Click marker", Toast.LENGTH_LONG).show();
+                    DirectionFinder finder = new DirectionFinder();
+                    Location loc = new Location("");
+                    loc.setLatitude(marker.getPosition().latitude);
+                    loc.setLongitude(marker.getPosition().longitude);
+                    // TODO: show path
+                    //finder.displayRoute(getApplicationContext(), mMap, mMap.getMyLocation(), loc);
+                }
+            });
+        } else {
             Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();
-
+            return;
         }
         updateLocationUI();
         // Get the current location of the device and set the position of the map.
@@ -334,7 +344,7 @@ public class MapsActivity extends FragmentActivity implements
         Log.i("CALLED", "helper btn.");
         Log.i("CURR LOCATION", mLastKnownLocation.toString());
         // Show all of helper people
-        if (mMap!= null && !isShowingInfoWindow ){
+        if (mMap != null && !isShowingInfoWindow) {
             helperList = new HelperList(mMap);
             // set custom info profile when user click on marker
             mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
@@ -345,18 +355,16 @@ public class MapsActivity extends FragmentActivity implements
             Button helperBtn = ((Button) findViewById(R.id.callHelperBtn));
             helperBtn.setText("List helpers");
             helperBtn.setBackgroundColor(Color.parseColor("#07C4F7"));
-        }
-        else if (mMap!=null && isShowingInfoWindow) {
+        } else if (mMap != null && isShowingInfoWindow) {
             Intent intent = new Intent(this, ListHelperPopup.class);
             ArrayList<Helper> listTemp = new ArrayList<>();
-            for (int i = 0 ; i< helperList.getSizeList(); i++) {
+            for (int i = 0; i < helperList.getSizeList(); i++) {
                 listTemp.add(helperList.getHelper(i));
             }
             String listSerializedToJson = new Gson().toJson(listTemp);
             intent.putExtra(EXTRA_POPUP_MESSAGE, listSerializedToJson);
             startActivity(intent);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Can not get the map", Toast.LENGTH_LONG).show();
         }
 
