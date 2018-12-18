@@ -50,7 +50,6 @@ public class ListHelperPopup extends Activity {
 
         ArrayList<Helper> objs = getIntent().getParcelableArrayListExtra(EXTRA_POPUP_MESSAGE);
         helperArray = objs.toArray(new Helper[objs.size()]);
-        Log.d("xxx", helperArray.toString());
         displayListHelpers();
     }
 
@@ -96,7 +95,7 @@ public class ListHelperPopup extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
-                    intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, helperArray[position].getName());
+                    intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, helperArray[position]);
                     startActivity(intent);
                 }
             });

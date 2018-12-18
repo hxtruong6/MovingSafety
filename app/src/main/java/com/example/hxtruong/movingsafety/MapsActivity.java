@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -149,20 +150,15 @@ public class MapsActivity extends FragmentActivity implements
                     // call an activity(xml file)
                     Toast.makeText(getApplicationContext(), "On Click marker", Toast.LENGTH_LONG).show();
                     for (int i = 0; i < helperList.getSizeList(); i++) {
-                        if (helperList.getHelper(i).getMarker().equals(marker)) {
-                            Log.d("xxx ", helperList.getHelper(i).getMarker().toString() + marker.toString());
+                        Helper helper = helperList.getHelper(i);
+                        if (helper.getMarker().equals(marker)) {
                             Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
-                            String message = "Hi fuck you =))";
-                            intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, message);
+                            Log.d("xxx1", helper.toString());
+                            intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, helper);
                             getApplicationContext().startActivity(intent);
+                            break;
                         }
                     }
-                    // TODO: show path
-//                    DirectionFinder finder = new DirectionFinder();
-//                    Location loc = new Location("");
-//                    loc.setLatitude(marker.getPosition().latitude);
-//                    loc.setLongitude(marker.getPosition().longitude);
-                    //finder.displayRoute(getApplicationContext(), mMap, mMap.getMyLocation(), loc);
                 }
             });
         } else {
@@ -350,8 +346,6 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     public void CallHelper(View view) {
-        Log.i("CALLED", "helper btn.");
-        Log.i("CURR LOCATION", mLastKnownLocation.toString());
         // Show all of helper people
         if (mMap != null && !isShowingInfoWindow) {
             helperList = new HelperList(mMap);
@@ -370,9 +364,6 @@ public class MapsActivity extends FragmentActivity implements
             for (int i = 0; i < helperList.getSizeList(); i++) {
                 listTemp.add(helperList.getHelper(i));
             }
-            Log.d("abc", "CallHelper: " + listTemp);
-//            String listSerializedToJson = new Gson().toJson(listTemp);
-//            intent.putExtra(ListHelperPopup.EXTRA_POPUP_MESSAGE, listTemp);
             intent.putParcelableArrayListExtra(ListHelperPopup.EXTRA_POPUP_MESSAGE, listTemp);
             startActivity(intent);
         } else {
