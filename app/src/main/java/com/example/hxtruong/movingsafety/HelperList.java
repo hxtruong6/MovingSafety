@@ -39,4 +39,9 @@ public class HelperList {
         return helperArrayList.get(i);
     }
 
+    public void updateDistanceCurrentLocation(Location currentLocation) {
+        for(Helper e: helperArrayList){
+            e.updateDistanceToCurrentLocation(currentLocation);
+        }
+    }
 }

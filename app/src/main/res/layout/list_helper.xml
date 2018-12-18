@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
         android:id="@+id/helperAvatar"
-        android:layout_width="67dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -22,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="TextView"
+        android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/helperAvatar"
         app:layout_constraintTop_toTopOf="@+id/helperAvatar" />
 
@@ -30,20 +29,22 @@
         android:id="@+id/helperDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
+        android:text="Distance"
         app:layout_constraintStart_toStartOf="@+id/helperName"
         app:layout_constraintTop_toBottomOf="@+id/helperName" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="53dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="112dp"
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/call_small"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/helperAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/helperAvatar"
         app:layout_constraintTop_toTopOf="@+id/helperAvatar"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/sym_action_call"
-        android:onClick="clickCallHelper"/>
+        app:layout_constraintVertical_bias="0.6" />
 </android.support.constraint.ConstraintLayout>

@@ -349,9 +349,11 @@ public class MapsActivity extends FragmentActivity implements
         // Show all of helper people
         if (mMap != null && !isShowingInfoWindow) {
             helperList = new HelperList(mMap);
+            helperList.updateDistanceCurrentLocation(mMap.getMyLocation());
             // set custom info profile when user click on marker
             mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
             helperList.displayAllHelperMarker();
+
             isShowingInfoWindow = true;
 
             // Change to show detail

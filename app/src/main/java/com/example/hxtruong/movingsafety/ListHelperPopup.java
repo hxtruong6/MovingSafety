@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class ListHelperPopup extends Activity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width * 0.8f), (int) (height * 0.7f));
+        getWindow().setLayout((int) (width * 0.8f), (int) (height * 0.8f));
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
@@ -88,10 +90,7 @@ public class ListHelperPopup extends Activity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             view = getLayoutInflater().inflate(R.layout.list_helper, null);
-            TextView helperName = view.findViewById(R.id.helperName);
-            String name = helperArray[position].getName();
-            helperName.setText(name);
-
+            displayInfoHelper(view, helperArray[position]);
             view.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
@@ -100,6 +99,19 @@ public class ListHelperPopup extends Activity {
                 }
             });
             return view;
+        }
+
+        private void displayInfoHelper(View view, Helper helper) {
+            ImageView panel_IMG_back = view.findViewById(R.id.helperAvatar);
+            Glide.with(getApplicationContext()).load(R.drawable.bg).into(panel_IMG_back);
+
+            TextView name = view.findViewById(R.id.helperName);
+            name.setText(helper.getName());
+
+            TextView distance = view.findViewById(R.id.helperDistance);
+            String distanceText = Integer.toString((int) helper.getDistanceToCurrenLocation() / 100);
+            distance.setText(distanceText + " km");
+
         }
 
 

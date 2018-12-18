@@ -2,12 +2,117 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actionHelperAction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailInfo">
+
+    <ImageView
+        android:id="@+id/splashImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:translationZ="-10dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:text="HelperName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/splashImageView"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintTop_toTopOf="@+id/splashImageView" />
+
+    <TextView
+        android:id="@+id/distanceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Distance"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+    <TextView
+        android:id="@+id/phoneTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nameTextView"/>
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splashImageView"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/callBtn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_column="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/call"
+                android:onClick="callBtnOnClick"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:id="@+id/messBtn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_column="2"
+                android:adjustViewBounds="true"
+                android:background="@drawable/mess"
+                android:onClick="messBtnOnClick"
+                android:scaleType="fitXY" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/commentBtn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_column="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/comment"
+                android:onClick="commentBtnOnClick"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:id="@+id/saveBtn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_column="2"
+                android:adjustViewBounds="true"
+                android:background="@drawable/save"
+                android:onClick="saveBtnOnClick"
+                android:scaleType="fitXY" />
+        </TableRow>
+
+
+    </TableLayout>
+
+
+
 
 </android.support.constraint.ConstraintLayout>
