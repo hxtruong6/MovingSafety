@@ -8,26 +8,32 @@
     tools:context=".MapsActivity">
 
     <fragment
-        class="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/callHelperBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="323dp"
+        android:layout_height="80dp"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/colorAccent"
         android:onClick="CallHelper"
         android:text="@string/call_helper_btn"
+
         android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
         map:layout_constraintBottom_toBottomOf="@+id/map"
         map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.0"
+        map:layout_constraintHorizontal_bias="0.433"
         map:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

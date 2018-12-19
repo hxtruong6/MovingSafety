@@ -346,6 +346,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     public void CallHelper(View view) {
+        Log.d("xxx my loc: ", mMap.getMyLocation().getLatitude() + "," + mMap.getMyLocation().getLongitude());
         // Show all of helper people
         if (mMap != null && !isShowingInfoWindow) {
             helperList = new HelperList(mMap);

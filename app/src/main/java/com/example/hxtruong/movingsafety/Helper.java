@@ -1,5 +1,6 @@
 package com.example.hxtruong.movingsafety;
 
+import android.location.Address;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,13 +19,20 @@ public class Helper implements Parcelable {
     private Location location;
     private Marker marker;
     private float[] distanceToCurrentLocation = new float[1];
+    private String address;
+    private String phoneNumber;
+    private String avatarLink;
+    private int score = 100;
 
-    public Helper(String name, Location location) {
+    public Helper(String name, Location location, String address, String phoneNumber, String avatarLink) {
         this.name = name;
         this.location = location;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.avatarLink = avatarLink;
     }
 
-    public void updateDistanceToCurrentLocation(Location userCurrentLocation ){
+    public void updateDistanceToCurrentLocation(Location userCurrentLocation) {
         Location.distanceBetween(userCurrentLocation.getLatitude(), userCurrentLocation.getLongitude(),
                 location.getLatitude(), location.getLongitude(), distanceToCurrentLocation);
     }
@@ -37,10 +45,20 @@ public class Helper implements Parcelable {
         return this.location;
     }
 
-    public void addMarker(GoogleMap mMap) {
-        marker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(this.location.getLatitude(), this.location.getLongitude()))
-                .title(this.name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
     }
 
     public String getName() {
@@ -55,10 +73,20 @@ public class Helper implements Parcelable {
         return distanceToCurrentLocation[0];
     }
 
+    public void addMarker(GoogleMap mMap) {
+        marker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(this.location.getLatitude(), this.location.getLongitude()))
+                .title(this.name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    }
+
     protected Helper(Parcel in) {
         name = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());
         distanceToCurrentLocation = in.createFloatArray();
+        score = in.readInt();
+        address = in.readString();
+        phoneNumber = in.readString();
+        avatarLink = in.readString();
     }
 
     @Override
@@ -66,6 +94,10 @@ public class Helper implements Parcelable {
         dest.writeString(name);
         dest.writeParcelable(location, flags);
         dest.writeFloatArray(distanceToCurrentLocation);
+        dest.writeInt(score);
+        dest.writeString(address);
+        dest.writeString(phoneNumber);
+        dest.writeString(avatarLink);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.Resource;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -61,11 +65,6 @@ public class ListHelperPopup extends Activity {
         listView.setAdapter(listHelperAdapter);
     }
 
-    public void clickCallHelper(View view) {
-        Toast.makeText(this, "Call", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "0976554304"));
-        startActivity(intent);
-    }
 
     class ListHelperAdapter extends BaseAdapter {
         public ListHelperAdapter() {
@@ -91,10 +90,21 @@ public class ListHelperPopup extends Activity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             view = getLayoutInflater().inflate(R.layout.list_helper, null);
             displayInfoHelper(view, helperArray[position]);
+            // send data to detail info
             view.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), DetailInfo.class);
                     intent.putExtra(DetailInfo.EXTRA_DETAIL_MESSAGE, helperArray[position]);
+                    startActivity(intent);
+                }
+            });
+
+            // call intent
+            ImageButton callBtn = view.findViewById(R.id.popupCallBtn);
+            callBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + helperArray[position].getPhoneNumber()));
                     startActivity(intent);
                 }
             });
@@ -103,7 +113,9 @@ public class ListHelperPopup extends Activity {
 
         private void displayInfoHelper(View view, Helper helper) {
             ImageView panel_IMG_back = view.findViewById(R.id.helperAvatar);
-            Glide.with(getApplicationContext()).load(R.drawable.bg).into(panel_IMG_back);
+            Context context = panel_IMG_back.getContext();
+            int bgId = context.getResources().getIdentifier(helper.getAvatarLink(), "drawable", context.getPackageName());
+            Glide.with(getApplicationContext()).load(bgId).into(panel_IMG_back);
 
             TextView name = view.findViewById(R.id.helperName);
             name.setText(helper.getName());
@@ -111,9 +123,7 @@ public class ListHelperPopup extends Activity {
             TextView distance = view.findViewById(R.id.helperDistance);
             String distanceText = Integer.toString((int) helper.getDistanceToCurrenLocation() / 100);
             distance.setText(distanceText + " km");
-
         }
-
 
     }
 }
